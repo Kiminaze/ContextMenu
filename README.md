@@ -11,7 +11,7 @@ Please do not contact anyone directly unless you have a really specific request 
 have a place in the server.
 
 
-**What exactly is the “ContextMenu” and what can you do with it?**
+**What exactly is the â€œContextMenuâ€ and what can you do with it?**
 
 ContextMenu is a script that allows you to create your own menus for any kind of purpose. It does 
 nothing by itself.
