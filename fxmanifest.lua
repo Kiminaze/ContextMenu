@@ -21,5 +21,5 @@ client_scripts {
 	'Menu/Menu.lua',
 	'Menu/MenuPool.lua',
 
-	'example.lua'
+	--'example.lua'
 }
