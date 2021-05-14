@@ -9,7 +9,7 @@ setmetatable(Item, {
     end
 })
 
-function Item:Init(menu, text, textColor, disabledTextColor, bgColor, bgHoveredColor, opacity)
+function Item:Init(menu, text, textColor, disabledTextColor, bgColor, bgHoveredColor, alpha)
     self.parent = menu
     
     self.position = vector2(0, 0)
@@ -30,7 +30,7 @@ function Item:Init(menu, text, textColor, disabledTextColor, bgColor, bgHoveredC
         sprite              = textColor or Colors.White,
         disabledSprite      = disabledTextColor or Colors.LightGrey
     }
-    self.opacity = opacity
+    self.alpha = alpha
 
     self.background = Rect(self.position, vector2(self.parent.width, self.height))
 
@@ -47,12 +47,12 @@ function Item:Init(menu, text, textColor, disabledTextColor, bgColor, bgHoveredC
 end
 
 function Item:Process(cursorPosition)
-    local opacity = self.opacity
+    local alpha = self.alpha
     local menuOverlapped = self.parent:IsOverlapped()
     if (menuOverlapped) then
-        opacity = math.floor(opacity * 0.5)
+        alpha = math.floor(alpha * 0.5)
     end
-    self.background:Draw((self.hovered and self.enabled) and self.colors.backgroundHovered:Opacity(opacity) or self.colors.background:Opacity(opacity))
+    self.background:Draw((self.hovered and self.enabled) and self.colors.backgroundHovered:Opacity(alpha) or self.colors.background:Opacity(alpha))
 
     if (self:IsOverlapped()) then
         return
@@ -71,20 +71,21 @@ function Item:Process(cursorPosition)
         end
     end
 
-    local textOpacity = 255
+    local textAlpha = 255
     if (menuOverlapped) then
-        textOpacity = 127
+        textAlpha = 127
     end
-    self.text:Draw(self.enabled and self.colors.text:Opacity(textOpacity) or self.colors.disabledText:Opacity(textOpacity))
+    self.text.color = self.enabled and self.colors.text:Opacity(textAlpha) or self.colors.disabledText:Opacity(textAlpha)
+    self.text:Draw()
 
     if (self.rightText) then
         self.rightText.position = self.position + vector2(self.parent.width - self.rightText:GetWidth() - 0.004, 0.003)
-
-        self.rightText:Draw(self.enabled and self.colors.text:Opacity(textOpacity) or self.colors.disabledText:Opacity(textOpacity))
+        self.rightText.color = self.enabled and self.colors.text:Opacity(textAlpha) or self.colors.disabledText:Opacity(textAlpha)
+        self.rightText:Draw()
     end
 
     if (self.rightSprite) then
-        self.rightSprite:Draw(self.enabled and self.colors.text:Opacity(textOpacity) or self.colors.disabledText:Opacity(textOpacity))
+        self.rightSprite:Draw(self.enabled and self.colors.text:Opacity(textAlpha) or self.colors.disabledText:Opacity(textAlpha))
     end
 end
 

@@ -10,8 +10,8 @@ setmetatable(CheckboxItem, {
     end
 })
 
-function CheckboxItem:Init(menu, text, value, textColor, disabledTextColor, bgColor, bgHoveredColor, opacity)
-    Item.Init(self, menu, text, textColor, disabledTextColor, bgColor, bgHoveredColor, opacity)    
+function CheckboxItem:Init(menu, text, value, textColor, disabledTextColor, bgColor, bgHoveredColor, alpha)
+    Item.Init(self, menu, text, textColor, disabledTextColor, bgColor, bgHoveredColor, alpha)    
     
     self.checked = value
 

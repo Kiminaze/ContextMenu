@@ -7,7 +7,7 @@ setmetatable(Sprite, {
     end
 })
 
-function Sprite.CreateNew(dict, name, position, size, heading)
+function Sprite.CreateNew(dict, name, position, size, heading, color)
     local self = setmetatable({}, Sprite)
 
     self.dict = dict
@@ -17,16 +17,18 @@ function Sprite.CreateNew(dict, name, position, size, heading)
     self.size = size or vector2(1, 1)
     self.heading = heading or 0.0
 
+    self.color = color or Colors.White
+
     return self
 end
 
-function Sprite:Draw(color)
+function Sprite:Draw()
 	if not HasStreamedTextureDictLoaded(self.dict) then
 		RequestStreamedTextureDict(self.dict, true)
 	end
 
     local pos = self.position + self.size * 0.5
-    DrawSprite(self.dict, self.name, pos.x, pos.y, self.size.x, self.size.y, self.heading, color.r, color.g, color.b, color.a)
+    DrawSprite(self.dict, self.name, pos.x, pos.y, self.size.x, self.size.y, self.heading, self.color.r, self.color.g, self.color.b, self.color.a)
 end
 
 function Sprite:SetPosition(position)

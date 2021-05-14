@@ -7,19 +7,20 @@ setmetatable(Text, {
     end
 })
 
-function Text.CreateNew(text)
+function Text.CreateNew(text, color)
     local self = setmetatable({}, Text)
 
     self.text = text
     self.position = vector2(0, 0)
     self.scale = vector2(0.3, 0.3)
+    self.color = color or Colors.White
 
     return self
 end
 
-function Text:Draw(color)
+function Text:Draw()
     SetTextScale(self.scale.x, self.scale.y)
-    SetTextColour(color.r, color.g, color.b, color.a)
+    SetTextColour(self.color.r, self.color.g, self.color.b, self.color.a)
     BeginTextCommandDisplayText("CELL_EMAIL_BCON")
     AddTextComponentSubstringPlayerName(self.text)
     EndTextCommandDisplayText(self.position.x, self.position.y)

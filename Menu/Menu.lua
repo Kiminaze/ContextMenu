@@ -23,13 +23,12 @@ function Menu.CreateNew(pool)
     self.hoverTimeout = 250
 
     self.colors = {
-        border = Colors.Grey,
         background = Colors.DarkGrey,
         backgroundHovered = Colors.LightGrey,
         text = Colors.White,
         textDisabled = Colors.Grey
     }
-    self.opacity = 255
+    self.alpha = 255
 
     self.border = Border(nil, nil, 0.001)
 
@@ -43,7 +42,15 @@ function Menu.CreateNew(pool)
 end
 
 function Menu:AddItem(text)
-    table.insert(self.items, Item(self, text, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.opacity))
+    table.insert(self.items, Item(self, text, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
+
+    self:RecalculatePosition(self.position)
+
+    return self.items[#self.items]
+end
+
+function Menu:AddTextItem(text)
+    table.insert(self.items, TextItem(self, text, self.colors.text, self.colors.background, self.alpha))
 
     self:RecalculatePosition(self.position)
 
@@ -51,7 +58,7 @@ function Menu:AddItem(text)
 end
 
 function Menu:AddCheckboxItem(text, value)
-    table.insert(self.items, CheckboxItem(self, text, value, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.opacity))
+    table.insert(self.items, CheckboxItem(self, text, value, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
 
     self:RecalculatePosition(self.position)
 
@@ -59,12 +66,12 @@ function Menu:AddCheckboxItem(text, value)
 end
 
 function Menu:AddSubmenu(text, submenu)
-    table.insert(self.items, SubmenuItem(self, text, submenu, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.opacity))
+    table.insert(self.items, SubmenuItem(self, text, submenu, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
 
     self.items[#self.items].submenu.parent = self
 
     self.items[#self.items].submenu.colors = self.colors
-    self.items[#self.items].submenu.opacity = self.opacity
+    self.items[#self.items].submenu.alpha = self.alpha
 
     self:RecalculatePosition(self.position)
 
@@ -72,7 +79,7 @@ function Menu:AddSubmenu(text, submenu)
 end
 
 function Menu:AddSeparator()
-    table.insert(self.separators, Separator(self, #self.items, self.colors.border, self.colors.background, self.opacity))
+    table.insert(self.separators, Separator(self, #self.items, self.colors.border, self.colors.background, self.alpha))
 
     self:RecalculatePosition(self.position)
 end
@@ -109,7 +116,7 @@ function Menu:Process(cursorPosition)
         end
     end
 
-    self.border:Draw(self.colors.border)
+    self.border:Draw()
 end
 
 function Menu:SetPosition(position)

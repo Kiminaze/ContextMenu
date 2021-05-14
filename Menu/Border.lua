@@ -7,12 +7,13 @@ setmetatable(Border, {
     end
 })
 
-function Border.CreateNew(position, size, thickness)
+function Border.CreateNew(position, size, thickness, color)
     local self = setmetatable({}, Border)
 
     self.position = position or vector2(0, 0)
     self.size = size or vector2(0, 0)
     self.thickness = thickness or 0.001
+    self.color = color or Colors.Grey
     
     self.rects = {}
 
@@ -33,8 +34,8 @@ function Border:SetPositionAndSize(position, size)
     }
 end
 
-function Border:Draw(color)
+function Border:Draw()
     for i = 1, #self.rects, 1 do
-        self.rects[i]:Draw(color)
+        self.rects[i]:Draw(self.color)
     end
 end

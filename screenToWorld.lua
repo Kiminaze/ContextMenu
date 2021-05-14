@@ -65,10 +65,10 @@ function ScreenToWorld(screenPosition, maxDistance)
     -- only for 16:9
     --local to = camPos + camForward + (camRight * screenPosition.x * fovRadians * 0.95) - (camUp * screenPosition.y * fovRadians * 0.53)
     -- only up to 16:9
-    --local to = camPos + camForward + (camRight * screenPosition.x * fovRadians * GetAspectRatio(false) * 0.534375) - (camUp * screenPosition.y * fovRadians * 0.534375)
+    local to = camPos + camForward + (camRight * screenPosition.x * fovRadians * GetAspectRatio(false) * 0.534375) - (camUp * screenPosition.y * fovRadians * 0.534375)
     -- should work for every resolution
-    local resX, resY = GetActiveScreenResolution()
-    local to = camPos + camForward + (camRight * screenPosition.x * fovRadians * (resX / resY) * 0.534375) - (camUp * screenPosition.y * fovRadians * 0.534375)
+    --local resX, resY = GetActiveScreenResolution()
+    --local to = camPos + camForward + (camRight * screenPosition.x * fovRadians * (resX / resY) * 0.534375) - (camUp * screenPosition.y * fovRadians * 0.534375)
 
     local direction = (to - camPos) * maxDistance
     local endPoint = camPos + direction
