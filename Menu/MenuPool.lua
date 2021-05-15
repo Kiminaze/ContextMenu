@@ -69,14 +69,14 @@ function MenuPool:Reset()
 end
 
 function MenuPool:Process()
-    if (IsControlJustPressed(0, self.keys.keyboard.holdForCursor)) then
+    if (IsControlJustPressed(0, self.keys.keyboard.holdForCursor) or IsDisabledControlJustPressed(0, self.keys.keyboard.holdForCursor)) then
         SetCursorLocation(0.5, 0.5)
 
         local resX, resY = GetActiveScreenResolution()
         self.resolution = vector2(resX, resY)
     end
 
-    if (IsControlPressed(0, self.keys.keyboard.holdForCursor)) then
+    if (IsControlPressed(0, self.keys.keyboard.holdForCursor) or IsDisabledControlPressed(0, self.keys.keyboard.holdForCursor)) then
         SetMouseCursorActiveThisFrame()
 
         local cursorPos = GetCursorScreenPosition()
@@ -89,19 +89,21 @@ function MenuPool:Process()
             end
         end
 
-        DisableControlAction(0, 1, true)
-        DisableControlAction(0, 2, true)
-        DisableControlAction(0, self.keys.keyboard.activateItem, true)
-        DisableControlAction(0, self.keys.keyboard.openMenu, true)
-        DisableControlAction(0, 68, true)
-        DisableControlAction(0, 69, true)
-        DisableControlAction(0, 70, true)
-        DisableControlAction(0, 91, true)
-        DisableControlAction(0, 92, true)
-        DisableControlAction(0, 330, true)
-        DisableControlAction(0, 331, true)
-        DisableControlAction(0, 347, true)
-        DisableControlAction(0, 257, true)
+        --DisableControlAction(0, 1, true)
+        --DisableControlAction(0, 2, true)
+        --DisableControlAction(0, self.keys.keyboard.activateItem, true)
+        --DisableControlAction(0, self.keys.keyboard.openMenu, true)
+        --DisableControlAction(0, 68, true)
+        --DisableControlAction(0, 69, true)
+        --DisableControlAction(0, 70, true)
+        --DisableControlAction(0, 91, true)
+        --DisableControlAction(0, 92, true)
+        --DisableControlAction(0, 330, true)
+        --DisableControlAction(0, 331, true)
+        --DisableControlAction(0, 347, true)
+        --DisableControlAction(0, 257, true)
+
+        DisableAllControlActions(0)
         
         local screenPosition = nil
         local hitSomething, worldPosition, normalDirection, hitEntityHandle = nil
@@ -184,7 +186,7 @@ function MenuPool:Process()
                 SetMouseCursorSprite(8)
             end
         end
-    elseif (IsControlJustReleased(0, self.keys.keyboard.holdForCursor)) then
+    elseif (IsControlJustReleased(0, self.keys.keyboard.holdForCursor) or IsDisabledControlJustReleased(0, self.keys.keyboard.holdForCursor)) then
         self:CloseAllMenus()
     end
 end
