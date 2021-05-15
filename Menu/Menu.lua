@@ -41,32 +41,32 @@ function Menu.CreateNew(pool)
     return self
 end
 
-function Menu:AddItem(text)
-    table.insert(self.items, Item(self, text, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
+function Menu:AddItem(title)
+    table.insert(self.items, Item(self, title, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
 
     self:RecalculatePosition(self.position)
 
     return self.items[#self.items]
 end
 
-function Menu:AddTextItem(text)
-    table.insert(self.items, TextItem(self, text, self.colors.text, self.colors.background, self.alpha))
+function Menu:AddTextItem(title)
+    table.insert(self.items, TextItem(self, title, self.colors.text, self.colors.background, self.alpha))
 
     self:RecalculatePosition(self.position)
 
     return self.items[#self.items]
 end
 
-function Menu:AddCheckboxItem(text, value)
-    table.insert(self.items, CheckboxItem(self, text, value, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
+function Menu:AddCheckboxItem(title, value)
+    table.insert(self.items, CheckboxItem(self, title, value, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
 
     self:RecalculatePosition(self.position)
 
     return self.items[#self.items]
 end
 
-function Menu:AddSubmenu(text, submenu)
-    table.insert(self.items, SubmenuItem(self, text, submenu, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
+function Menu:AddSubmenu(title, submenu)
+    table.insert(self.items, SubmenuItem(self, title, submenu, self.colors.text, self.colors.textDisabled, self.colors.background, self.colors.backgroundHovered, self.alpha))
 
     self.items[#self.items].submenu.parent = self
 

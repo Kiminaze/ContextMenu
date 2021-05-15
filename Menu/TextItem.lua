@@ -10,8 +10,8 @@ setmetatable(TextItem, {
     end
 })
 
-function TextItem:Init(menu, text, textColor, bgColor, alpha)
-    Item.Init(self, menu, text, nil, textColor, nil, bgColor, alpha)  
+function TextItem:Init(menu, title, textColor, bgColor, alpha)
+    Item.Init(self, menu, title, nil, textColor, nil, bgColor, alpha)  
     
     self.enabled = false
 end

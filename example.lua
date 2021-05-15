@@ -83,12 +83,12 @@ function CreateMenu(screenPosition, worldPosition, hitEntity)
 
             -- loop through animations from config
             for i = 1, #Config.anims, 1 do
-                local text = Config.anims[i][1]
+                local title = Config.anims[i][1]
                 local animDict = Config.anims[i][2]
                 local anim = Config.anims[i][3]
 
                 -- create a new item with its name
-                local animItem = animMenu:AddItem(text)
+                local animItem = animMenu:AddItem(title)
                 -- add the OnClick function to the item
                 animItem.OnClick = function()
 	                local playerPed = PlayerPedId()

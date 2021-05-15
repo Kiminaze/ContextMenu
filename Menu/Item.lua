@@ -9,14 +9,14 @@ setmetatable(Item, {
     end
 })
 
-function Item:Init(menu, text, textColor, disabledTextColor, bgColor, bgHoveredColor, alpha)
+function Item:Init(menu, title, textColor, disabledTextColor, bgColor, bgHoveredColor, alpha)
     self.parent = menu
     
     self.position = vector2(0, 0)
     
     self.height = 0.03
 
-    self.text = Text(text)
+    self.text = Text(title)
 
     self.rightText = nil
 

@@ -54,10 +54,10 @@ function MenuPool:AddMenu()
     return self.menus[#self.menus]
 end
 
-function MenuPool:AddSubmenu(parentMenu, text)
+function MenuPool:AddSubmenu(parentMenu, title)
     table.insert(self.menus, Menu(self))
 
-    local item = parentMenu:AddSubmenu(text, self.menus[#self.menus])
+    local item = parentMenu:AddSubmenu(title, self.menus[#self.menus])
 
     return self.menus[#self.menus], item
 end
