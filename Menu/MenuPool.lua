@@ -106,7 +106,7 @@ function MenuPool:Process()
 
         if (self.OnMouseOver) then
             screenPosition = GetCursorScreenPosition()
-            hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 1000.0)
+            hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 10000.0)
 
             self.OnMouseOver(screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
         end
@@ -114,7 +114,7 @@ function MenuPool:Process()
         if (self.OnOpenMenu and IsDisabledControlJustPressed(0, self.keys.keyboard.openMenu)) then
             if (screenPosition == nil) then
                 screenPosition = GetCursorScreenPosition()
-                hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 1000.0)
+                hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 10000.0)
             end
 
             Citizen.CreateThread(function()
@@ -125,7 +125,7 @@ function MenuPool:Process()
         if (self.OnAltFunction and IsDisabledControlJustPressed(0, self.keys.keyboard.altFunction)) then
             if (screenPosition == nil) then
                 screenPosition = GetCursorScreenPosition()
-                hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 1000.0)
+                hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 10000.0)
             end
 
             Citizen.CreateThread(function()
