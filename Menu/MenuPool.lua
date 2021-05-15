@@ -81,11 +81,9 @@ function MenuPool:Process()
 
         local cursorPos = GetCursorScreenPosition()
         
-        local drawing = false
         for i = 1, #self.menus, 1 do
             if (self.menus[i]:Visible()) then
                 self.menus[i]:Process(cursorPos)
-                drawing = true
             end
         end
 
@@ -103,8 +101,6 @@ function MenuPool:Process()
         DisableControlAction(0, 347, true)
         DisableControlAction(0, 257, true)
 
-        --DisableAllControlActions(0)
-        
         local screenPosition = nil
         local hitSomething, worldPosition, normalDirection, hitEntityHandle = nil
 
@@ -171,20 +167,21 @@ function MenuPool:Process()
             local frameTime = GetFrameTime()
 
             if (screenPosition.x > (self.resolution.x - 10.0) / self.resolution.x) then
-                SetGameplayCamRelativeHeading(GetGameplayCamRelativeHeading() - 25.0 * frameTime)
+                SetGameplayCamRelativeHeading(GetGameplayCamRelativeHeading() - 60.0 * frameTime)
                 SetMouseCursorSprite(7)
             elseif (screenPosition.x < 10.0 / self.resolution.x) then
-                SetGameplayCamRelativeHeading(GetGameplayCamRelativeHeading() + 25.0 * frameTime)
+                SetGameplayCamRelativeHeading(GetGameplayCamRelativeHeading() + 60.0 * frameTime)
                 SetMouseCursorSprite(6)
             end
 
-            if (screenPosition.y > (self.resolution.y - 10.0) / self.resolution.y) then
-                SetGameplayCamRelativePitch(GetGameplayCamRelativePitch() - 25.0 * frameTime, 1.0)
-                SetMouseCursorSprite(9)
-            elseif (screenPosition.y < 10.0 / self.resolution.y) then
-                SetGameplayCamRelativePitch(GetGameplayCamRelativePitch() + 25.0 * frameTime, 1.0)
-                SetMouseCursorSprite(8)
-            end
+            -- causes camera problems
+            --if (screenPosition.y > (self.resolution.y - 10.0) / self.resolution.y) then
+            --    SetGameplayCamRelativePitch(GetGameplayCamRelativePitch() - 25.0 * frameTime, 1.0)
+            --    SetMouseCursorSprite(9)
+            --elseif (screenPosition.y < 10.0 / self.resolution.y) then
+            --    SetGameplayCamRelativePitch(GetGameplayCamRelativePitch() + 25.0 * frameTime, 1.0)
+            --    SetMouseCursorSprite(8)
+            --end
         end
     elseif (IsControlJustReleased(0, self.keys.keyboard.holdForCursor) or IsDisabledControlJustReleased(0, self.keys.keyboard.holdForCursor)) then
         self:CloseAllMenus()
