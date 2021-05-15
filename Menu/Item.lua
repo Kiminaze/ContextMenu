@@ -52,7 +52,7 @@ function Item:Process(cursorPosition)
     if (menuOverlapped) then
         alpha = math.floor(alpha * 0.5)
     end
-    self.background:Draw((self.hovered and self.enabled) and self.colors.backgroundHovered:Opacity(alpha) or self.colors.background:Opacity(alpha))
+    self.background:Draw((self.hovered and self.enabled) and self.colors.backgroundHovered:Alpha(alpha) or self.colors.background:Alpha(alpha))
 
     if (self:IsOverlapped()) then
         return
@@ -75,17 +75,17 @@ function Item:Process(cursorPosition)
     if (menuOverlapped) then
         textAlpha = 127
     end
-    self.text.color = self.enabled and self.colors.text:Opacity(textAlpha) or self.colors.disabledText:Opacity(textAlpha)
+    self.text.color = self.enabled and self.colors.text:Alpha(textAlpha) or self.colors.disabledText:Alpha(textAlpha)
     self.text:Draw()
 
     if (self.rightText) then
         self.rightText.position = self.position + vector2(self.parent.width - self.rightText:GetWidth() - 0.004, 0.003)
-        self.rightText.color = self.enabled and self.colors.text:Opacity(textAlpha) or self.colors.disabledText:Opacity(textAlpha)
+        self.rightText.color = self.enabled and self.colors.text:Alpha(textAlpha) or self.colors.disabledText:Alpha(textAlpha)
         self.rightText:Draw()
     end
 
     if (self.rightSprite) then
-        self.rightSprite:Draw(self.enabled and self.colors.text:Opacity(textAlpha) or self.colors.disabledText:Opacity(textAlpha))
+        self.rightSprite:Draw(self.enabled and self.colors.text:Alpha(textAlpha) or self.colors.disabledText:Alpha(textAlpha))
     end
 end
 

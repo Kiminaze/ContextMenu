@@ -18,8 +18,8 @@ function Color.CreateNew(r, g, b, a)
     return self
 end
 
-function Color:Opacity(opacity)
-    return Color(self.r, self.g, self.b, opacity)
+function Color:Alpha(alpha)
+    return Color(self.r, self.g, self.b, alpha)
 end
 
 

@@ -65,7 +65,7 @@ function CreateMenu(screenPosition, worldPosition, hitEntity)
     local contextMenu = menuPool:AddMenu()
 
     -- change the menus default opacity for all items
-    --contextMenu.opacity = 150
+    --contextMenu.alpha = 150
 
     -- change the menus default text color (list of named colors can be found in Drawables/Color.lua)
     --contextMenu.colors.text = Colors.DarkRed
