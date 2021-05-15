@@ -89,21 +89,21 @@ function MenuPool:Process()
             end
         end
 
-        --DisableControlAction(0, 1, true)
-        --DisableControlAction(0, 2, true)
-        --DisableControlAction(0, self.keys.keyboard.activateItem, true)
-        --DisableControlAction(0, self.keys.keyboard.openMenu, true)
-        --DisableControlAction(0, 68, true)
-        --DisableControlAction(0, 69, true)
-        --DisableControlAction(0, 70, true)
-        --DisableControlAction(0, 91, true)
-        --DisableControlAction(0, 92, true)
-        --DisableControlAction(0, 330, true)
-        --DisableControlAction(0, 331, true)
-        --DisableControlAction(0, 347, true)
-        --DisableControlAction(0, 257, true)
+        DisableControlAction(0, 1, true)
+        DisableControlAction(0, 2, true)
+        DisableControlAction(0, self.keys.keyboard.activateItem, true)
+        DisableControlAction(0, self.keys.keyboard.openMenu, true)
+        DisableControlAction(0, 68, true)
+        DisableControlAction(0, 69, true)
+        DisableControlAction(0, 70, true)
+        DisableControlAction(0, 91, true)
+        DisableControlAction(0, 92, true)
+        DisableControlAction(0, 330, true)
+        DisableControlAction(0, 331, true)
+        DisableControlAction(0, 347, true)
+        DisableControlAction(0, 257, true)
 
-        DisableAllControlActions(0)
+        --DisableAllControlActions(0)
         
         local screenPosition = nil
         local hitSomething, worldPosition, normalDirection, hitEntityHandle = nil
