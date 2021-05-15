@@ -10,8 +10,8 @@ setmetatable(SubmenuItem, {
     end
 })
 
-function SubmenuItem:Init(menu, text, submenu, textColor, disabledTextColor, bgColor, bgHoveredColor, opacity)
-    Item.Init(self, menu, text, textColor, disabledTextColor, bgColor, bgHoveredColor, opacity)    
+function SubmenuItem:Init(menu, title, submenu, textColor, disabledTextColor, bgColor, bgHoveredColor, alpha)
+    Item.Init(self, menu, title, textColor, disabledTextColor, bgColor, bgHoveredColor, alpha)    
     
     self.submenu = submenu
 

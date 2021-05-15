@@ -51,20 +51,13 @@ end
 -- create a new menu pool
 local menuPool = MenuPool()
 
--- most basic loop for the menu
-Citizen.CreateThread(function()
-    while (true) do
-        Citizen.Wait(0)
+-- overwrite the menu open function
+menuPool.OnOpenMenu = function(screenPosition, hitSomething, worldPosition, hitEntity, normalDirection)
+    -- create your menu here!
+    CreateMenu(screenPosition, worldPosition, hitEntity)
+end
 
-        -- call the Process function of the menu pool (needs to be called every frame)
-        menuPool:Process(function(screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
-            -- create your menu here!
-            CreateMenu(screenPosition, worldPosition, hitEntityHandle)
-        end)
-    end
-end)
-
-function CreateMenu(screenPosition, worldPosition, hitEntityHandle)
+function CreateMenu(screenPosition, worldPosition, hitEntity)
     -- call this when you need to recreate a menu
     menuPool:Reset()
 
@@ -72,21 +65,14 @@ function CreateMenu(screenPosition, worldPosition, hitEntityHandle)
     local contextMenu = menuPool:AddMenu()
 
     -- change the menus default opacity for all items
-    --contextMenu.opacity = 150
+    --contextMenu.alpha = 150
 
     -- change the menus default text color (list of named colors can be found in Drawables/Color.lua)
     --contextMenu.colors.text = Colors.DarkRed
 
-    -- alternatively you can create a new color like this (RGB or RGBA ranging from 0-255)
-    --contextMenu.colors.text = Color(127, 0, 0)
-    --contextMenu.colors.text = Color(127, 0, 0, 255)
-
-    -- change the border color of the menu
-    --contextMenu.colors.border = Colors.MISSING_COLOR
-    
     -- check, if an entity was clicked
-    if (hitEntityHandle ~= nil and DoesEntityExist(hitEntityHandle)) then
-        if (PlayerPedId() == hitEntityHandle) then
+    if (hitEntity ~= nil and DoesEntityExist(hitEntity)) then
+        if (PlayerPedId() == hitEntity) then
             -- player
 
             -- create a new submenu for animations
@@ -97,12 +83,12 @@ function CreateMenu(screenPosition, worldPosition, hitEntityHandle)
 
             -- loop through animations from config
             for i = 1, #Config.anims, 1 do
-                local text = Config.anims[i][1]
+                local title = Config.anims[i][1]
                 local animDict = Config.anims[i][2]
                 local anim = Config.anims[i][3]
 
                 -- create a new item with its name
-                local animItem = animMenu:AddItem(text)
+                local animItem = animMenu:AddItem(title)
                 -- add the OnClick function to the item
                 animItem.OnClick = function()
 	                local playerPed = PlayerPedId()
@@ -117,10 +103,10 @@ function CreateMenu(screenPosition, worldPosition, hitEntityHandle)
                     RemoveAnimDict(animDict)
                 end
             end
-        elseif (IsEntityAVehicle(hitEntityHandle)) then
+        elseif (IsEntityAVehicle(hitEntity)) then
             -- vehicle
 
-            local vehicle = hitEntityHandle
+            local vehicle = hitEntity
 
             local itemDelete = contextMenu:AddItem("Delete vehicle")
             itemDelete.OnClick = function()
@@ -151,10 +137,10 @@ function CreateMenu(screenPosition, worldPosition, hitEntityHandle)
                     SetBoatAnchor(vehicle, true)
                 end
             end
-        elseif (IsEntityAPed(hitEntityHandle)) then
+        elseif (IsEntityAPed(hitEntity)) then
             -- ped
 
-            local ped = hitEntityHandle
+            local ped = hitEntity
 
             local itemDelete = contextMenu:AddItem("Delete ped")
             itemDelete.OnClick = function()
@@ -163,10 +149,10 @@ function CreateMenu(screenPosition, worldPosition, hitEntityHandle)
                     DeleteEntity(ped)
                 end
             end
-        elseif (IsEntityAnObject(hitEntityHandle)) then
+        elseif (IsEntityAnObject(hitEntity)) then
             -- object
 
-            local object = hitEntityHandle
+            local object = hitEntity
 
             local itemDelete = contextMenu:AddItem("Delete object")
             itemDelete.OnClick = function()

@@ -7,7 +7,7 @@ setmetatable(Separator, {
     end
 })
 
-function Separator.CreateNew(menu, index, lineColor, bgColor, opacity)
+function Separator.CreateNew(menu, index, lineColor, bgColor, alpha)
     local self = setmetatable({}, Separator)
 
     self.parent = menu
@@ -17,7 +17,7 @@ function Separator.CreateNew(menu, index, lineColor, bgColor, opacity)
 
     self.background = Rect(vector2(0, 0), vector2(self.parent.width, 0.012))
     self.line = Rect(vector2(0, 0), vector2(self.parent.width - 0.004, 0.001 * GetAspectRatio(false)))
-    self.opacity = opacity
+    self.alpha = alpha
 
     self.colors = {
         line = lineColor or Colors.Grey,
@@ -28,7 +28,7 @@ function Separator.CreateNew(menu, index, lineColor, bgColor, opacity)
 end
 
 function Separator:Process()
-    self.background:Draw(Color(self.colors.background.r, self.colors.background.g, self.colors.background.b, self.opacity))
+    self.background:Draw(Color(self.colors.background.r, self.colors.background.g, self.colors.background.b, self.alpha))
     self.line:Draw(self.colors.line)
 end
 
