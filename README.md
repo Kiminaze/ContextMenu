@@ -20,7 +20,7 @@ open specific menus for specific objects. This is kind of like your default righ
 every other application.
 E.g. clicking on a player can have a completely different menu than clicking on a vehicle.
 An example of what can be done with this script can be found in this video:
-https://www.youtube.com/watch?v=corEK_GoZ1A
+https://www.youtube.com/watch?v=5ZXmMr_QwH4
 
 Checkout the Vehicle Interaction Script that is using this menu here:
 https://forum.cfx.re/t/release-advanced-vehicle-interaction/2719099
