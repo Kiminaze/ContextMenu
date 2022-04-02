@@ -1,5 +1,5 @@
 
-**Support**
+### Support
 
 If you require any form of support after acquiring this resource, the right place to ask is our 
 Discord Server: https://discord.gg/UyAu2jABzE
@@ -11,7 +11,7 @@ Please do not contact anyone directly unless you have a really specific request 
 have a place in the server.
 
 
-**What exactly is the “ContextMenu” and what can you do with it?**
+### What exactly is the “ContextMenu” and what can you do with it?
 
 ContextMenu is a script that allows you to create your own menus for any kind of purpose. It does 
 nothing by itself.
@@ -22,36 +22,39 @@ E.g. clicking on a player can have a completely different menu than clicking on 
 An example of what can be done with this script can be found in this video:
 https://www.youtube.com/watch?v=corEK_GoZ1A
 
-Checkout the Advanced Vehicle Interaction Script that is using this menu here:
+Checkout the Vehicle Interaction Script that is using this menu here:
 https://forum.cfx.re/t/release-advanced-vehicle-interaction/2719099
 
 
-**Features**
+### Features
 
-- Create custom menus using LUA.
+- Create custom context based menus using LUA.
 - Menu items include:
   - Item: Just has text and can be clicked.
+  - SpriteItem: Background image and can be clicked.
   - TextItem: Just text and no functionality.
   - CheckboxItem: Has a text and a checkbox that can be checked.
   - SubmenuItem: Automatically created when creating a submenu to a menu.
   - Separator: Just a separator line to group items together.
-- Use custom sprites on the right side of an item.
-- Fully customizable with width, height and colors (background, highlighted background, text, 
-  highlighted text, sprite, menu border, separator lines).
-- Includes the full source code.
-- Compatible with basically everything? Let me know if you find any issues!
+- Use custom sprites on the right and left side of an item.
+- Extensive customizability with more to come!
+- Easily create custom ingame UI elements using the following elements:
+  - Sprites (with UV coordinates)
+  - Text (with all settings)
+  - Rectangles
+- All elements can be parented, positioned, scaled etc.
+- Compatible with basically everything? Might collide with other targeting scripts.
+- Let me know if you find any issues!
 
 
-**Performance**
+### Performance
 
 - The script itself draws no performance at all.
 - When you have created your own menu, the performance depends on the amount of items that are 
   currently displayed on the screen.
-- The Client side performance of the "Advanced Vehicle Interaction" menu is around 0.25ms when 
-  the main menu is shown.
 
 
-**FAQ**
+### FAQ
 
 Is this still WIP and will it be expanded upon?
 
@@ -71,23 +74,19 @@ How can I create a custom menu?
   not difficult!
 
 
-**Known Issues**
+### Known Issues
 
-- Resolutions wider than 21:9 will cause dislocation problems of the cursor and menu. This issue 
-  is being worked on.
-- Controller support is not working as of now.
+- No Controller support as of now.
 
 
-**Patchnotes**
+### Patchnotes
 
-Update (v1.1):
-
-- Breaking change: removed Process() function (example updated to reflect this change)
-- Added more functions to the MenuPool:
-  - OnOpenMenu: gets called, when the menu should open
-  - OnAltFunction: gets called, when alt button is clicked
-  - OnMouseOver: gets called while the button for the menu is held
-- Added TextItem: No functionality, just text.
-- Added camera rotation when touching the screen edge with the mouse (can be turned off).
-- Renamed variable "opacity" to "alpha" in all instances.
-- Renamed variable "text" from Text class to "title".
+## Update v2.0:
+- Completely reworked every single part of the code. Not compatible with prior versions!
+- Basically now acts as a giant UI library for FiveM:
+  All UI elements can now be parented to other UI elements to make positioning and scaling much easier.
+- Better performance while menu is open.
+- Menu background is now a Sprite that can be changed to better fit your own server aesthetics instead of just a grey background.
+- Added Scroll- and PageMenu which both allow for an unlimited number of items without cluttering the screen.
+- Added exports for creating the menu. Several scripts can add items / submenus to the default menu without overlapping each other.
+- Added SpriteUV for controlling the UVs of a sprite directly.
