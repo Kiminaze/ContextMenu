@@ -87,7 +87,7 @@ local function NewItem(menu, title)
 		end)
 
 		if (self.closeOnActivate) then
-			parent.pool:CloseAllMenus()
+			self.parent.pool:CloseAllMenus()
 		end
 	end
 
