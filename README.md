@@ -81,7 +81,7 @@ How can I create a custom menu?
 
 ### Patchnotes
 
-## Update v2.0:
+## Update v2.0
 - Completely reworked every single part of the code. Not compatible with prior versions!
 - Basically now acts as a giant UI library for FiveM:
   All UI elements can now be parented to other UI elements to make positioning and scaling much easier.
@@ -90,3 +90,9 @@ How can I create a custom menu?
 - Added Scroll- and PageMenu which both allow for an unlimited number of items without cluttering the screen.
 - Added exports for creating the menu. Several scripts can add items / submenus to the default menu without overlapping each other.
 - Added SpriteUV for controlling the UVs of a sprite directly.
+
+## Update v2.0.1
+- Fixed an error when using the "CloseOnActivate" setting from an item.
+
+## Update v2.0.2
+- Fixed an error when using the mouse wheel when not hovering a scroll menu.

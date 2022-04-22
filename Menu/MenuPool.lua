@@ -128,14 +128,14 @@ local function NewMenuPool()
 
 			if (IsDisabledControlJustPressed(0, 16)) then
 				for i = #self.menus, 1, -1 do
-					if (self.menus[i]:Visible() and self.menus[i]:InBounds(cursorPosition)) then
+					if (self.menus[i]:Visible() and self.menus[i].Scroll and self.menus[i]:InBounds(cursorPosition)) then
 						self.menus[i]:Scroll("down")
 						break
 					end
 				end
 			elseif (IsDisabledControlJustPressed(0, 17)) then
 				for i = #self.menus, 1, -1 do
-					if (self.menus[i]:Visible() and self.menus[i]:InBounds(cursorPosition)) then
+					if (self.menus[i]:Visible() and self.menus[i].Scroll and self.menus[i]:InBounds(cursorPosition)) then
 						self.menus[i]:Scroll("up")
 						break
 					end
