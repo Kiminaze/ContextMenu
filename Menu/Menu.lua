@@ -20,8 +20,10 @@ local function NewMenu(pool)
 		border      = BORDER.COLOR,
 		background  = BACKGROUND.COLOR,
 		hBackground = BACKGROUND.H_COLOR,
+		dBackground = BACKGROUND.D_COLOR,
 		text        = TEXT.COLOR,
-		hText       = TEXT.H_COLOR
+		hText       = TEXT.H_COLOR,
+		dText		= TEXT.D_COLOR
 	}
 
 	local border = Border()

@@ -1,18 +1,39 @@
 
 local HOVER_TIMEOUT = 250
 
+local function MenuOverlapped(menu)
+	for i, item in ipairs(menu.objectList) do
+		if (item.submenu and item.submenu:Visible()) then
+			for j, item2 in ipairs(item.submenu.objectList) do
+				if (item2.submenu and item2.submenu:Visible()) then
+					for k, item3 in ipairs(item2.submenu.objectList) do
+						if (item3.hovered) then
+							return true
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return false
+end
+
 local function NewSubmenuItem(menu, title, submenu)
 	-- create the SubmenuItem
 	local self = setmetatable(Item(menu, title), SubmenuItem)
 
 	-- add all necessary colors
 	self.colors = {
-		background  = self.parent.colors.background,
-		hBackground = self.parent.colors.hBackground,
-		text        = self.parent.colors.text,
-		hText       = self.parent.colors.hText,
-		rightText   = self.parent.colors.text,
-		hRightText  = self.parent.colors.hText
+		background  = self.parent and self.parent.colors.background or Colors.DarkGrey:Alpha(180),
+		hBackground = self.parent and self.parent.colors.hBackground or Colors.LightGrey:Alpha(180),
+		dBackground = self.parent and self.parent.colors.dBackground or Colors.DarkGrey:Alpha(180),
+		text        = self.parent and self.parent.colors.text or Colors.White,
+		hText       = self.parent and self.parent.colors.hText or Colors.White,
+		dText       = self.parent and self.parent.colors.dText or Colors.Grey,
+		rightText   = self.parent and self.parent.colors.text or Colors.White,
+		hRightText  = self.parent and self.parent.colors.hText or Colors.White,
+		dRightText  = self.parent and self.parent.colors.dText or Colors.Grey
 	}
 
 	self.submenu = submenu
@@ -89,18 +110,20 @@ local function NewSubmenuItem(menu, title, submenu)
 			self.text.color = self.hovered and self.colors.hText or self.colors.text
 			self.background.color = self.hovered and self.colors.hBackground or self.colors.background
 
-			if (self.hovered) then
-				Citizen.CreateThread(function()
-					Coroutine_StartedHoveringForSubmenu(self)
+			if (not MenuOverlapped(self.parent)) then
+				if (self.hovered) then
+					Citizen.CreateThread(function()
+						Coroutine_StartedHoveringForSubmenu(self)
 
-					self.OnStartHover()
-				end)
-			else
-				Citizen.CreateThread(function()
-					Coroutine_StoppedHoveringForSubmenu(self)
+						self.OnStartHover()
+					end)
+				else
+					Citizen.CreateThread(function()
+						Coroutine_StoppedHoveringForSubmenu(self)
 
-					self.OnEndHover()
-				end)
+						self.OnEndHover()
+					end)
+				end
 			end
 		end
 	end

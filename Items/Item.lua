@@ -7,10 +7,13 @@ local function NewItem(menu, title)
 	self.colors = {
 		background  = self.parent and self.parent.colors.background or Colors.DarkGrey:Alpha(180),
 		hBackground = self.parent and self.parent.colors.hBackground or Colors.LightGrey:Alpha(180),
+		dBackground = self.parent and self.parent.colors.dBackground or Colors.DarkGrey:Alpha(180),
 		text        = self.parent and self.parent.colors.text or Colors.White,
 		hText       = self.parent and self.parent.colors.hText or Colors.White,
+		dText       = self.parent and self.parent.colors.dText or Colors.Grey,
 		rightText   = self.parent and self.parent.colors.text or Colors.White,
-		hRightText  = self.parent and self.parent.colors.hText or Colors.White
+		hRightText  = self.parent and self.parent.colors.hText or Colors.White,
+		dRightText  = self.parent and self.parent.colors.dText or Colors.Grey
 	}
 
 	self.closeOnActivate = false
@@ -45,6 +48,12 @@ local function NewItem(menu, title)
 			if (self.rightText) then
 				self.rightText.color = self.hovered and self.colors.hRightText or self.colors.rightText
 			end
+			if (self.leftSprite) then
+				self.leftSprite.color = self.hovered and self.colors.hText or self.colors.text
+			end
+			if (self.rightSprite) then
+				self.rightSprite.color = self.hovered and self.colors.hRightText or self.colors.rightText
+			end
 
 			if (self.hovered) then
 				Citizen.CreateThread(function()
@@ -65,6 +74,27 @@ local function NewItem(menu, title)
 
 		for i, obj in ipairs(self.objectList) do
 			obj:Draw()
+		end
+	end
+
+	-- get/set if the Item is enabled
+	function self:Enabled(newEnabled)
+		if (newEnabled == nil) then
+			return self.enabled
+		end
+
+		self.enabled = newEnabled
+
+		self.text.color = self.enabled and self.colors.text or self.colors.dText
+		self.background.color = self.enabled and self.colors.background or self.colors.dBackground
+		if (self.rightText) then
+			self.rightText.color = self.enabled and self.colors.rightText or self.colors.dRightText
+		end
+		if (self.leftSprite) then
+			self.leftSprite.color = self.enabled and self.colors.text or self.colors.dText
+		end
+		if (self.rightSprite) then
+			self.rightSprite.color = self.enabled and self.colors.rightText or self.colors.dRightText
 		end
 	end
 

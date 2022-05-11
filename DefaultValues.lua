@@ -22,7 +22,9 @@ BACKGROUND = {
 	-- color
 	COLOR	= Colors.Black,
 	-- highlight color
-	H_COLOR	= Colors.DarkGrey
+	H_COLOR	= Colors.DarkGrey,
+	-- disabled color
+	D_COLOR = Colors.Black
 }
 
 --   text values
@@ -32,7 +34,9 @@ TEXT = {
 	-- color
 	COLOR	= Colors.White,
 	-- highlight color
-	H_COLOR	= Colors.White
+	H_COLOR	= Colors.White,
+	-- disabled color
+	D_COLOR = Colors.Grey
 }
 
 --   border color
