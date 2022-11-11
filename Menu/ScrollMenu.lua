@@ -61,6 +61,10 @@ local function NewScrollMenu(pool, _maxItems)
 
 
 	function self:Scroll(direction)
+		if (#itemList < maxItems) then
+			return
+		end
+
 		if (direction == "down") then
 			currentIndex = currentIndex + 1
 		else
