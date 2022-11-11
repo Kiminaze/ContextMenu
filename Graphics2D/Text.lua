@@ -3,23 +3,23 @@ local function NewText(_title, _color, _position, _size, _alignment)
 	local self = setmetatable(Object2D(_position, vector2(1.0, 1.0)), Text)
 
 	-- private
-	local internalPosition  = vector2(0.0, 0.0)
-	local internalSize      = 1.0
+	local internalPosition	= vector2(0.0, 0.0)
+	local internalSize		= 1.0
 
 	local size = _size or 0.3
 
 	-- public
 	self.title = _title or "MISSING_TEXT"
 
-	self.alignment  = _alignment or TextAlignment.Left
-	self.maxWidth   = 0.0
+	self.alignment	= _alignment or TextAlignment.Left
+	self.maxWidth	= 0.0
 
 	self.font = TextFont.Default
 
 	self.color = _color or Colors.White
 
-	self.shadowDistance = 0
-	self.shadowColor    = Colors.Black
+	self.shadowDistance	= 0
+	self.shadowColor	= Colors.Black
 
 
 

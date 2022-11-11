@@ -2,11 +2,11 @@
 local function NewObject2D(_position, _scale)
 	local self = setmetatable({}, Object2D)
 
-	self.parent     = nil
-	self.children   = {}
+	self.parent		= nil
+	self.children	= {}
 
-	self.position   = _position or vector2(0.0, 0.0)
-	self.scale      = _scale or vector2(1.0, 1.0)
+	self.position	= _position or vector2(0.0, 0.0)
+	self.scale		= _scale or vector2(1.0, 1.0)
 
 
 
@@ -72,18 +72,18 @@ local function NewObject2D(_position, _scale)
 	function self:AbsolutePosition()
 		if (self.parent) then
 			return self.parent:AbsolutePosition() + self.position * self.parent:AbsoluteScale()
-		else
-			return self.position
 		end
+
+		return self.position
 	end
 
 	-- get the absolute screen scale of the Object2D
 	function self:AbsoluteScale()
 		if (self.parent) then
 			return self.parent:AbsoluteScale() * self.scale
-		else
-			return self.scale
 		end
+
+		return self.scale
 	end
 
 	function self:Destroy()

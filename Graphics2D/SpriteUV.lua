@@ -6,21 +6,21 @@ local function NewSpriteUV(_dict, _name, _position, _size, _angle, _color)
 	local dict = _dict
 	local name = _name
 
-	local internalPosition  = vector2(0, 0)
-	local internalScale     = vector2(1, 1)
+	local internalPosition	= vector2(0, 0)
+	local internalScale		= vector2(1, 1)
 
 	local size = _size or vector2(1.0, 1.0)
 
 	-- public
-	self.angle  = _angle or 0.0
-	self.color  = _color or Colors.White
+	self.angle = _angle or 0.0
+	self.color = _color or Colors.White
 
 	self.uv1 = vector2(0.0, 0.0)
 	self.uv2 = vector2(1.0, 1.0)
 
 
 
-	-- get/set the position of the Rect
+	-- get/set the position of the SpriteUV
 	function self:Position(newPosition)
 		if (not newPosition) then
 			return self.position
@@ -28,7 +28,7 @@ local function NewSpriteUV(_dict, _name, _position, _size, _angle, _color)
 
 		self.position = newPosition
 
-		internalPosition = self:AbsolutePosition() + (self:AbsoluteScale() * size * 0.5)
+		internalPosition = self:AbsolutePosition() + (internalScale * 0.5)
 
 		-- re-calc children position
 		for i, child in ipairs(self.children) do
@@ -36,7 +36,7 @@ local function NewSpriteUV(_dict, _name, _position, _size, _angle, _color)
 		end
 	end
 
-	-- get/set the scale of the Rect
+	-- get/set the scale of the SpriteUV
 	function self:Scale(newScale)
 		if (not newScale) then
 			return self.scale
@@ -44,8 +44,25 @@ local function NewSpriteUV(_dict, _name, _position, _size, _angle, _color)
 
 		self.scale = newScale
 
-		internalScale = self:AbsoluteScale() * size
-		internalPosition = self:AbsolutePosition() + (self:AbsoluteScale() * size * 0.5)
+		internalScale		= self:AbsoluteScale() * size
+		internalPosition	= self:AbsolutePosition() + (internalScale * 0.5)
+
+		-- re-calc children scale
+		for i, child in ipairs(self.children) do
+			child:Scale(child:Scale())
+		end
+	end
+
+	-- get/set the size of the Sprite
+	function self:Size(newSize)
+		if (not newSize) then
+			return size
+		end
+
+		size = newSize
+
+		internalScale		= self:AbsoluteScale() * size
+		internalPosition	= self:AbsolutePosition() + (internalScale * 0.5)
 
 		-- re-calc children scale
 		for i, child in ipairs(self.children) do

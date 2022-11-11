@@ -20,7 +20,7 @@ local function NewBorder(_size, _thickness, _color)
 	local function RecalculateBorder()
 		-- pre-calc
 		local aspectRatio = GetAspectRatio(false)
-		local thick = vector2(thickness, thickness * aspectRatio)-- * self.scale
+		local thick = vector2(thickness, thickness * aspectRatio)
 		local halfThick = thick * 0.5
 
 		local topLeft = -halfThick
@@ -36,14 +36,6 @@ local function NewBorder(_size, _thickness, _color)
 		edges[3]:Size(horizontalSize)
 		edges[4]:Position(vector2(size.x - halfThick.x, topLeft.y))
 		edges[4]:Size(verticalSize)
-
-		--self:Clear()
-		--
-		---- add rects
-		--self:Add(Rect(topLeft, horizontalSize, color))
-		--self:Add(Rect(topLeft, verticalSize, color))
-		--self:Add(Rect(vector2(topLeft.x, size.y - halfThick.y), horizontalSize, color))
-		--self:Add(Rect(vector2(size.x - halfThick.x, topLeft.y), verticalSize, color))
 	end
 
 	-- get/set the size of the Border
@@ -58,12 +50,12 @@ local function NewBorder(_size, _thickness, _color)
 	end
 
 	-- get/set the color of the Border
-	function self:Color(_color)
-		if (_color == nil) then
+	function self:Color(newColor)
+		if (newColor == nil) then
 			return color
 		end
 
-		color = _color
+		color = newColor
 
 		for i, obj in ipairs(self.objectList) do
 			obj.color = color

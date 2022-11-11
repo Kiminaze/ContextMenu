@@ -3,8 +3,8 @@ local function NewRect(_position, _size, _color)
 	local self = setmetatable(Object2D(_position, vector2(1.0, 1.0)), Rect)
 
 	-- private
-	local internalPosition  = vector2(0.0, 0.0)
-	local internalScale     = vector2(1.0, 1.0)
+	local internalPosition	= vector2(0.0, 0.0)
+	local internalScale		= vector2(1.0, 1.0)
 
 	local size = _size or vector2(1.0, 1.0)
 
@@ -21,7 +21,7 @@ local function NewRect(_position, _size, _color)
 
 		self.position = newPosition
 
-		internalPosition = self:AbsolutePosition() + (self:AbsoluteScale() * size * 0.5)
+		internalPosition = self:AbsolutePosition() + (internalScale * 0.5)
 
 		-- re-calc children position
 		for i, child in ipairs(self.children) do
@@ -37,8 +37,8 @@ local function NewRect(_position, _size, _color)
 
 		self.scale = newScale
 
-		internalScale = self:AbsoluteScale() * size
-		internalPosition = self:AbsolutePosition() + (self:AbsoluteScale() * size * 0.5)
+		internalScale		= self:AbsoluteScale() * size
+		internalPosition	= self:AbsolutePosition() + (internalScale * 0.5)
 
 		-- re-calc children scale
 		for i, child in ipairs(self.children) do
@@ -54,8 +54,8 @@ local function NewRect(_position, _size, _color)
 
 		size = newSize
 
-		internalScale = self:AbsoluteScale() * size
-		internalPosition = self:AbsolutePosition() + (self:AbsoluteScale() * size * 0.5)
+		internalScale		= self:AbsoluteScale() * size
+		internalPosition	= self:AbsolutePosition() + (internalScale * 0.5)
 	end
 	
 	-- get/set the color of the Rect
@@ -78,8 +78,8 @@ local function NewRect(_position, _size, _color)
 		self.parent = nil
 
 		for k, v in pairs(self.children) do
-			if (self.children[k].ClearReferences) then
-				self.children[k]:ClearReferences()
+			if (self.children[k].Destroy) then
+				self.children[k]:Destroy()
 			end
 
 			self.children[k] = nil
