@@ -16,7 +16,7 @@ local function NewObject2D(_position, _scale)
 			return self.parent
 		end
 
-		if (self.parent) then
+		if (self.parent and self.parent ~= newParent) then
 			for i, child in ipairs(self.parent.children) do
 				if (child == self) then
 					table.remove(self.parent.children, i)
@@ -28,6 +28,23 @@ local function NewObject2D(_position, _scale)
 		self.parent = newParent
 
 		table.insert(self.parent.children, self)
+
+		self:Position(self:Position())
+		self:Scale(self:Scale())
+	end
+
+	-- remove parent of the Object2D
+	function self:RemoveParent()
+		if (not self.parent) then return end
+
+		for i, child in ipairs(self.parent.children) do
+			if (child == self) then
+				table.remove(self.parent.children, i)
+				break
+			end
+		end
+
+		self.parent = nil
 
 		self:Position(self:Position())
 		self:Scale(self:Scale())
