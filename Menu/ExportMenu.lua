@@ -1,5 +1,9 @@
 
+-- table for default menu open functions
 local funcTable = {}
+
+-- table for alternate functions
+local altFuncTable = {}
 
 local exportMenuPool
 local exportMenu
@@ -24,10 +28,6 @@ local function GetMenu(menuId)
 end
 
 local function AddItemToList(item)
-	--if (#itemList % 10 == 0) then
-	--	Citizen.Wait(0)
-	--end
-
 	table.insert(itemList, item)
 	return #itemList
 end
@@ -41,20 +41,6 @@ function InitExportMenu()
 	exportMenuPool = MenuPool()
 
 	exportMenuPool.OnInteract = function(screenPosition, hitSomething, worldPosition, hitEntity, normalDirection)
-		-- cooldown for opening the menu
-		if (onCooldown) then
-			return
-		end
-		onCooldown = true
-		Citizen.CreateThread(function()
-			local timer = GetGameTimer()
-			while (GetGameTimer() < timer + OPENING_COOLDOWN) do
-				Citizen.Wait(0)
-			end
-
-			onCooldown = false
-		end)
-
 		-- reset menu
 		exportMenuPool:Reset()
 
@@ -82,7 +68,7 @@ function InitExportMenu()
 				end
 			end
 		end
-		for i = #toDelete, 1, -1 do
+		for i = 1, #toDelete do
 			table.remove(funcTable, toDelete[i])
 		end
 
@@ -94,14 +80,26 @@ end
 
 
 
-local function Register(func)
-	table.insert(funcTable, func)
+local function Register(index, func)
+	if (type(index) == "number" and func ~= nil) then
+		table.insert(funcTable, index, func)
+	else
+		table.insert(funcTable, index)
+	end
 
 	if (exportMenuPool == nil) then
 		InitExportMenu()
 	end
 
 	return #funcTable
+end
+
+local function RegisterAltFunction(key, func)
+	if (exportMenuPool == nil) then
+		exportMenuPool = MenuPool()
+	end
+
+	exportMenuPool:AddAlternateFunction(key, func)
 end
 
 
@@ -219,6 +217,7 @@ end
 
 
 exports("Register", Register)
+exports("RegisterAltFunction", RegisterAltFunction)
 
 -- menu related
 exports("AddSeparator", AddSeparator)
