@@ -3,7 +3,7 @@ games { 'gta5' }
 
 author 'Philipp Decker'
 description 'Lets you create context menus.'
-version '2.1.0'
+version '3.0.0_dev'
 
 client_scripts {
 	'Utils/screenToWorld.lua',
