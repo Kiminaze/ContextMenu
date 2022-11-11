@@ -3,7 +3,9 @@ local disabledControls = {
 	1, 2, 16, 17, 24, 25, 68, 69, 70, 91, 92, 330, 331, 347, 257
 }
 
-local function NewMenuPool()
+local onCooldown = false
+
+local function NewMenuPool(holdKey, interactKey, activateItemKey)
 	local self = setmetatable({}, MenuPool)
 
 	self.menus = {}
@@ -76,6 +78,7 @@ local function NewMenuPool()
 				hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 10000.0)
 
 				self.OnMouseOver(screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
+				TriggerEvent("CM:onMouseOver", screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
 			end
 
 			if (self.OnInteract and IsDisabledControlJustPressed(0, self.keys.keyboard.interact)) then
@@ -84,9 +87,16 @@ local function NewMenuPool()
 					hitSomething, worldPosition, normalDirection, hitEntityHandle = ScreenToWorld(screenPosition, 10000.0)
 				end
 
-				Citizen.CreateThread(function()
-					self.OnInteract(screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
-				end)
+				if (not onCooldown) then
+					onCooldown = true
+
+					Citizen.CreateThread(function()
+						self.OnInteract(screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
+						TriggerEvent("CM:onInteract", screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
+
+						onCooldown = false
+					end)
+				end
 			end
 
 			for i, alt in ipairs(self.alternateFunctions) do
@@ -98,6 +108,7 @@ local function NewMenuPool()
 
 					Citizen.CreateThread(function()
 						alt.Func(screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
+						TriggerEvent("CM:onAlternate", alt.key, screenPosition, hitSomething, worldPosition, hitEntityHandle, normalDirection)
 					end)
 				end
 			end
@@ -159,7 +170,7 @@ local function NewMenuPool()
 					SetMouseCursorSprite(6)
 				end
 
-				-- causes camera problems
+				-- causes camera problems (even GTAO doesn't use this in its UI)
 				--if (screenPosition.y > (resolution.y - 10.0) / resolution.y) then
 				--    SetGameplayCamRelativePitch(GetGameplayCamRelativePitch() - 25.0 * frameTime, 1.0)
 				--    SetMouseCursorSprite(9)
@@ -169,7 +180,7 @@ local function NewMenuPool()
 				--end
 			end
 		elseif (IsControlJustReleased(0, self.keys.keyboard.holdForCursor) or IsDisabledControlJustReleased(0, self.keys.keyboard.holdForCursor)) then
-			self:Reset()
+			--self:Reset()
 		end
 	end
 
