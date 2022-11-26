@@ -21,6 +21,8 @@ local function NewPageMenu(pool, _maxItems)
 	border:Color(self.colors.border)
 	border:Parent(self)
 
+	self.LoadAsync = nil
+
 	local function RecalculatePosition(_position)
 		self.position = _position
 
@@ -58,25 +60,9 @@ local function NewPageMenu(pool, _maxItems)
 
 
 
-	function self:SwitchPage(direction)
-		if (direction == "right") then
-			currentIndex = currentIndex + maxItems
-		else
-			currentIndex = currentIndex - maxItems
-		end
-
-		if (currentIndex < 1) then
-			if (#itemList % maxItems == 0) then
-				currentIndex = #itemList - maxItems + 1
-			else
-				currentIndex = #itemList - (#itemList % maxItems - 1)
-			end
-		end
-		if (currentIndex > #itemList) then
-			currentIndex = 1
-		end
-
+	local function LoadPage()
 		self:Clear()
+
 		pageItem.text.title = 1 + (math.floor(currentIndex / maxItems))
 		self:Add(pageItem)
 
@@ -87,6 +73,43 @@ local function NewPageMenu(pool, _maxItems)
 		end
 
 		RecalculatePosition(self.position)
+	end
+
+	function self:LoadFirstPage()
+		if (self.LoadAsync == nil) then return end
+
+		self.LoadAsync(1, maxItems)
+
+		LoadPage()
+	end
+
+	function self:SwitchPage(direction)
+		if (direction == "right") then
+			currentIndex = currentIndex + maxItems
+		else
+			currentIndex = currentIndex - maxItems
+		end
+
+		if (self.LoadAsync and currentIndex > #itemList) then
+			self.LoadAsync(currentIndex, maxItems)
+		end
+
+		if (currentIndex < 1) then
+			if (self.LoadAsync == nil) then
+				if (#itemList % maxItems == 0) then
+					currentIndex = #itemList - maxItems + 1
+				else
+					currentIndex = #itemList - (#itemList % maxItems - 1)
+				end
+			else
+				currentIndex = 1
+			end
+		end
+		if (currentIndex > #itemList) then
+			currentIndex = 1
+		end
+
+		LoadPage()
 	end
 
 	function self:AddAnyItem(item)

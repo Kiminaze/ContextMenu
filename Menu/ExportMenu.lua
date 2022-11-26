@@ -11,8 +11,6 @@ local exportMenu
 local itemList = {}
 local submenuList = {}
 
-local OPENING_COOLDOWN = 250
-
 
 
 local function GetMenu(menuId)
@@ -20,9 +18,7 @@ local function GetMenu(menuId)
 		return exportMenu
 	end
 
-	if (menuId > #submenuList) then
-		return
-	end
+	assert(menuId <= #submenuList, "Parameter \"menuId\" must be a valid menu id!")
 
 	return submenuList[menuId]
 end
@@ -93,6 +89,8 @@ local function Register(index, func)
 
 	return #funcTable
 end
+
+Register(function() end)
 
 local function RegisterAltFunction(key, func)
 	if (exportMenuPool == nil) then
@@ -214,6 +212,15 @@ local function RightText(itemId, text)
 	end
 end
 
+local function LoadAsync(menuId, func)
+	local menu = GetMenu(menuId)
+	assert(tostring(menu):find("PageMenu") ~= nil, "Parameter \"menuId\" must be a valid PageMenu id!")
+
+	menu.LoadAsync = func
+
+	menu:LoadFirstPage()
+end
+
 
 
 exports("Register", Register)
@@ -229,6 +236,7 @@ exports("AddCheckboxItem", AddCheckboxItem)
 exports("AddSubmenu", AddSubmenu)
 exports("AddScrollSubmenu", AddScrollSubmenu)
 exports("AddPageSubmenu", AddPageSubmenu)
+exports("LoadAsync", LoadAsync)
 
 -- item related
 exports("OnActivate", OnActivate)
