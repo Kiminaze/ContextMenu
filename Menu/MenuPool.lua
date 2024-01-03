@@ -3,6 +3,9 @@ local disabledControls = {
 	1, 2, 16, 17, 24, 25, 68, 69, 70, 91, 92, 330, 331, 347, 257
 }
 
+local isToggleKeyDown = false
+local isToggleKeyDown2 = false
+
 local function NewMenuPool()
 	local self = setmetatable({}, MenuPool)
 
@@ -10,7 +13,6 @@ local function NewMenuPool()
 
 	self.keys = {
 		keyboard = {
-			holdForCursor   = holdKey or 19,
 			interact        = interactKey or 25,
 			activateItem    = activateItemKey or 24
 		}
@@ -41,7 +43,8 @@ local function NewMenuPool()
 			return
 		end
 
-		if (IsControlJustPressed(0, self.keys.keyboard.holdForCursor) or IsDisabledControlJustPressed(0, self.keys.keyboard.holdForCursor)) then
+		if (isToggleKeyDown and not isToggleKeyDown2) then
+			print("truc 1")
 			if (self:IsAnyMenuOpen()) then
 				self:CloseAllMenus()
 			end
@@ -50,10 +53,12 @@ local function NewMenuPool()
 
 			local resX, resY = GetActiveScreenResolution()
 			resolution = vector2(resX, resY)
+
+			isToggleKeyDown2 = true
 		end
 
 		--not self.settings.holdKeyWithMenuOpen and self:IsAnyMenuOpen()
-		if (IsControlPressed(0, self.keys.keyboard.holdForCursor) or IsDisabledControlPressed(0, self.keys.keyboard.holdForCursor)) then
+		if (isToggleKeyDown and isToggleKeyDown2) then
 			SetMouseCursorActiveThisFrame()
 
 			local cursorPosition = GetCursorScreenPosition()
@@ -159,17 +164,10 @@ local function NewMenuPool()
 					SetMouseCursorSprite(6)
 				end
 
-				-- causes camera problems
-				--if (screenPosition.y > (resolution.y - 10.0) / resolution.y) then
-				--    SetGameplayCamRelativePitch(GetGameplayCamRelativePitch() - 25.0 * frameTime, 1.0)
-				--    SetMouseCursorSprite(9)
-				--elseif (screenPosition.y < 10.0 / resolution.y) then
-				--    SetGameplayCamRelativePitch(GetGameplayCamRelativePitch() + 25.0 * frameTime, 1.0)
-				--    SetMouseCursorSprite(8)
-				--end
 			end
-		elseif (IsControlJustReleased(0, self.keys.keyboard.holdForCursor) or IsDisabledControlJustReleased(0, self.keys.keyboard.holdForCursor)) then
+		elseif (isToggleKeyDown2) then
 			self:Reset()
+			isToggleKeyDown2 = false
 		end
 	end
 
@@ -250,3 +248,13 @@ function MenuPool:AddAlternateFunction(_key, _Func)
 		Func = _Func
 	})
 end
+
+RegisterCommand("+context_menu", function()
+	isToggleKeyDown = true
+end, false)
+
+RegisterCommand("-context_menu", function()
+	isToggleKeyDown = false
+end, false)
+
+RegisterKeyMapping("+context_menu", "Context Menu", "keyboard", "LMENU")
