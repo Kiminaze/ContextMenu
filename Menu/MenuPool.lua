@@ -3,8 +3,8 @@ local disabledControls = {
 	1, 2, 16, 17, 24, 25, 68, 69, 70, 91, 92, 330, 331, 347, 257
 }
 
-local isToggleKeyDown = false
-local isToggleKeyDown2 = false
+local isKeyToggled = false
+local isKeyToggledSinceLastTick = false
 
 local function NewMenuPool()
 	local self = setmetatable({}, MenuPool)
@@ -43,7 +43,7 @@ local function NewMenuPool()
 			return
 		end
 
-		if (isToggleKeyDown and not isToggleKeyDown2) then
+		if (isKeyToggled and not isKeyToggledSinceLastTick) then
 			if (self:IsAnyMenuOpen()) then
 				self:CloseAllMenus()
 			end
@@ -53,11 +53,11 @@ local function NewMenuPool()
 			local resX, resY = GetActiveScreenResolution()
 			resolution = vector2(resX, resY)
 
-			isToggleKeyDown2 = true
+			isKeyToggledSinceLastTick = true
 		end
 
 		--not self.settings.holdKeyWithMenuOpen and self:IsAnyMenuOpen()
-		if (isToggleKeyDown and isToggleKeyDown2) then
+		if (isKeyToggled and isKeyToggledSinceLastTick) then
 			SetMouseCursorActiveThisFrame()
 
 			local cursorPosition = GetCursorScreenPosition()
@@ -164,9 +164,9 @@ local function NewMenuPool()
 				end
 
 			end
-		elseif (isToggleKeyDown2) then
+		elseif (isKeyToggledSinceLastTick) then
 			self:Reset()
-			isToggleKeyDown2 = false
+			isKeyToggledSinceLastTick = false
 		end
 	end
 
@@ -249,11 +249,11 @@ function MenuPool:AddAlternateFunction(_key, _Func)
 end
 
 RegisterCommand("+context_menu", function()
-	isToggleKeyDown = true
+	isKeyToggled = true
 end, false)
 
 RegisterCommand("-context_menu", function()
-	isToggleKeyDown = false
+	isKeyToggled = false
 end, false)
 
 RegisterKeyMapping("+context_menu", "Context Menu", "keyboard", "LMENU")
