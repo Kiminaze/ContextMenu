@@ -44,7 +44,6 @@ local function NewMenuPool()
 		end
 
 		if (isToggleKeyDown and not isToggleKeyDown2) then
-			print("truc 1")
 			if (self:IsAnyMenuOpen()) then
 				self:CloseAllMenus()
 			end
