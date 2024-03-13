@@ -2,7 +2,7 @@
 ### Support
 
 If you require any form of support after acquiring this resource, the right place to ask is our 
-Discord Server: https://discord.gg/UyAu2jABzE
+Discord Server: https://discord.kiminaze.de
 
 Make sure to react to the initial message with the tick and your language to get access to all 
 the different channels.
