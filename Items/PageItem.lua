@@ -40,7 +40,6 @@ local function NewPageItem(scrollMenu)
 
 	local scale = vector2(self.parent.width, DEFAULT_HEIGHT)
 
-	local direction = _direction
 	self.sprite		= SpriteUV("commonmenu", "arrowleft",  vector2(self.parent.width * 0.15, 0.0), vector2(0.015, 0.015 * GetAspectRatio(false)))
 	self.sprite2	= SpriteUV("commonmenu", "arrowright", vector2(self.parent.width * 0.75, 0.0), vector2(0.015, 0.015 * GetAspectRatio(false)))
 	self:Add(self.sprite)
