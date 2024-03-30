@@ -114,14 +114,16 @@ local function NewSubmenuItem(menu, title, submenu)
 				if (self.hovered) then
 					Citizen.CreateThread(function()
 						Coroutine_StartedHoveringForSubmenu()
-
-						self.OnStartHover()
+						if (self.OnStartHover) then
+							self.OnStartHover()
+						end
 					end)
 				else
 					Citizen.CreateThread(function()
 						Coroutine_StoppedHoveringForSubmenu()
-
-						self.OnEndHover()
+						if (self.OnEndHover) then
+							self.OnEndHover()
+						end
 					end)
 				end
 			end
@@ -154,11 +156,15 @@ local function NewSubmenuItem(menu, title, submenu)
 		end
 
 		Citizen.CreateThread(function()
-			self:OpenSubmenu()
+			if (self.OpenSubmenu) then
+				self:OpenSubmenu()
+			end
 		end)
 
 		Citizen.CreateThread(function()
-			self.OnActivate()
+			if (self.OnActivate) then
+				self.OnActivate()
+			end
 		end)
 	end
 
