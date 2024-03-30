@@ -113,13 +113,13 @@ local function NewSubmenuItem(menu, title, submenu)
 			if (not MenuOverlapped(self.parent)) then
 				if (self.hovered) then
 					Citizen.CreateThread(function()
-						Coroutine_StartedHoveringForSubmenu(self)
+						Coroutine_StartedHoveringForSubmenu()
 
 						self.OnStartHover()
 					end)
 				else
 					Citizen.CreateThread(function()
-						Coroutine_StoppedHoveringForSubmenu(self)
+						Coroutine_StoppedHoveringForSubmenu()
 
 						self.OnEndHover()
 					end)
@@ -149,7 +149,7 @@ local function NewSubmenuItem(menu, title, submenu)
 	end
 
 	function self:Activated()
-		if (not enabled) then
+		if (not self.enabled) then
 			return
 		end
 
