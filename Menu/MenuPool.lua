@@ -10,9 +10,9 @@ local function NewMenuPool()
 
 	self.keys = {
 		keyboard = {
-			holdForCursor   = holdKey or 19,
-			interact        = interactKey or 25,
-			activateItem    = activateItemKey or 24
+			holdForCursor   = 19,
+			interact        = 25,
+			activateItem    = 24
 		}
 	}
 

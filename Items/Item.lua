@@ -57,11 +57,15 @@ local function NewItem(menu, title)
 
 			if (self.hovered) then
 				Citizen.CreateThread(function()
-					self.OnStartHover()
+					if (self.OnStartHover) then
+						self.OnStartHover()
+					end
 				end)
 			else
 				Citizen.CreateThread(function()
-					self.OnEndHover()
+					if (self.OnEndHover) then
+						self.OnEndHover()
+					end
 				end)
 			end
 		end
@@ -113,7 +117,9 @@ local function NewItem(menu, title)
 		end
 
 		Citizen.CreateThread(function()
-			self.OnActivate()
+			if (self.OnActivate) then
+				self.OnActivate()
+			end
 		end)
 
 		if (self.closeOnActivate) then
@@ -127,7 +133,9 @@ local function NewItem(menu, title)
 		end
 
 		Citizen.CreateThread(function()
-			self.OnRelease()
+			if (self.OnRelease) then
+				self.OnRelease()
+			end
 		end)
 	end
 
